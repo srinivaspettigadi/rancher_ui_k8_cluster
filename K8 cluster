@@ -2,3 +2,66 @@ https://www.redpill-linpro.com/techblog/2019/04/04/kubernetes-setup.html
 
 
 https://medium.com/@vivek_syngh/setup-a-single-node-kubernetes-cluster-on-ubuntu-16-04-6412373d837a
+
+
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
+
+
+Now add the Kubernetes repository, run below commands a root. Create kubernetes repository source list file
+touch /etc/apt/sources.list.d/kubernetes.list
+
+Edit the file in your favourite editor and add below line if not present
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+
+Initialize the node
+For kubernetes pods to communicate it requires pod network. There are several pod network but in this guide we will be using Flannel. Find more about Pod network here.
+Set /proc/sys/net/bridge/bridge-nf-call-iptables to 1 by running below command to pass bridged IPv4 traffic to iptables chains. This is a requirement for some CNI plugins to work, for more information please see here.
+sysctl net.bridge.bridge-nf-call-iptables=1
+For flannel to work correctly, you must pass --pod-network-cidr=10.244.0.0/16 to kubeadm init
+
+kubeadm init --pod-network-cidr=10.244.0.0/16
+
+==============================================================
+kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.0.109:6443 --token wa87qm.6lnhemebrjcvhs0m \
+	--discovery-token-ca-cert-hash sha256:5557d6acabf3d504c178e675b08084b2e85d1d044755c6aece387c644fc10d29 
+
+==============================================================
+
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+
+
+kubectl get pods --all-namespaces
