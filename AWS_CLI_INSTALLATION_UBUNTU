@@ -1,0 +1,37 @@
+https://linuxhint.com/install_aws_cli_ubuntu/
+
+sudo apt-get update
+sudo apt-get install awscli -y  --> installing aws cli
+
+Installing python 
+sudo apt-get install python-pip
+
+FOR PYTHON 3
+----------------
+$ sudo apt-get install python3-pip
+
+For upgrading the aws cli version
+
+ pip install awscli --upgrade --user
+
+FOR PYTHON 3
+=---------------
+$ pip3 install awscli --upgrade --user
+
+$ python -m awscli --version
+
+INSTALLTION DONE
+=====================
+aws --version
+aws-cli/1.18.69 Python/3.8.10 Linux/5.8.0-63-generic botocore/1.16.19
+
+CONGIGURING AWS CLI WITH AWS USER ACCESS KEY AND SECRET KEY
+==============================================================
+
+aws configure
+
+
+
+
+
+
