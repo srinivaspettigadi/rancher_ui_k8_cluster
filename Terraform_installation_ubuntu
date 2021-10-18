@@ -1,0 +1,62 @@
+wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
+
+sudo apt-get install zip -y ; 
+unzip terraform*.zip;
+sudo mv terraform /usr/local/bin;
+terraform version
+
+
+Next, unzip the Terraform download with the command:
+
+unzip terraform*.zip
+
+Finally, move the executable with the command:
+
+sudo mv terraform /usr/local/bin
+Test to make sure the installation works with the command:
+
+terraform version
+
+erraform version
+Terraform v0.12.24
+
+Your version of Terraform is out of date! The latest version
+is 1.0.9. You can update by downloading from https://www.terraform.io/downloads.html
+
+===========================================================================================================
+ TERRAFORM INITIZATION
+ ========================
+srinivas@srinivas-Inspiron-3521:~/terraform$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 3.37.0...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.aws: version = "~> 3.37"
+
+
+Warning: registry.terraform.io: This version of Terraform has an outdated GPG key and is unable to verify new provider releases. Please upgrade Terraform to at least 0.12.31 to receive new provider updates. For details see: https://discuss.hashicorp.com/t/hcsec-2021-12-codecov-security-event-and-hashicorp-gpg-key-exposure/23512
+
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+
